@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "829934569895",
+    "project_id": "amal-11013",
+    "storage_bucket": "amal-11013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829934569895:android:ac1afc3a2f5afa73bdce82",
+        "android_client_info": {
+          "package_name": "com.example.amal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNYBSRbz9AevM87EfnxSdTK3joTCp1PvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
