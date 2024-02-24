@@ -1,4 +1,7 @@
+// main.dart
+
 import 'package:amal/screens/home/home_screen.dart';
+import 'package:amal/screens/menu/menu_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black, secondary: Colors.black, background: Colors.white),
+      ),
       home: MyHomePage(),
     );
   }
@@ -25,40 +32,87 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
+  int _selectedIndex = 2;
 
   final List<Widget> _pages = [
+
+    const Center(child: Text('menu')),
+    const Center(child: Text('Page 3')),
     HelpGettersScreen(),
-    Center(child: Text('Page 2')),
-    Center(child: Text('Page 3')),
+    const Center(child: Text('Page 3')),
+    const Center(child: Text('Page 12')),
+
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-      ),
+  @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: _pages[_selectedIndex],
+    bottomNavigationBar: BottomNavigationBar(
+      showUnselectedLabels: true,
+      unselectedItemColor: Colors.grey,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.grid_view),
+          label: 'Меню',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_balance_wallet_rounded),
+          label: 'Платежи',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite), 
+          label: 'Помощь',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.build),
+          label: 'Дело',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.emoji_events),
+          label: 'Награды',
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.black,
+      onTap: (int index) {
+        switch(index) {
+          case 0:
+            _showMenu(context);
+            break;
+          case 1:
+            _onItemTapped(index);
+            break;
+          case 2:
+            _onItemTapped(index);
+            break;
+          case 3:
+            _onItemTapped(index);
+            break;
+          case 4:
+            _onItemTapped(index);
+            break;
+        }
+      },
+    ),
+  );
+}
+
+
+  // Function to show the sliding-up menu
+  void _showMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return MenuWidget();
+      },
     );
   }
 }

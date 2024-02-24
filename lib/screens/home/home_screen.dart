@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'help_getter.dart';
+import 'help_getter_widget.dart';
 
 class HelpGettersScreen extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
 
     return snapshot.docs
         .map((DocumentSnapshot<Map<String, dynamic>> document) {
-      return HelpGetter.fromMap(document.data());
+      return HelpGetter.fromMap(document.data()!);
     }).toList();
   }
 
@@ -30,7 +31,11 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Help Getters'),
+        title: const Text(
+          'Благополучатели',
+          style: TextStyle(fontWeight: FontWeight.w300, fontSize: 30),
+        ),
+        centerTitle: false,
       ),
       body: FutureBuilder<List<HelpGetter>>(
         future: helpGetters,
@@ -45,10 +50,7 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
               itemCount: helpGettersList.length,
               itemBuilder: (context, index) {
                 HelpGetter helpGetter = helpGettersList[index];
-                return ListTile(
-                  title: Text(helpGetter.name),
-                  subtitle: Text('Address: ${helpGetter.address}\nRaised: \$${helpGetter.raised}\nNeeded: \$${helpGetter.needed}'),
-                );
+                return HelpGetterWidget(helpGetter: helpGetter);
               },
             );
           }
@@ -56,10 +58,4 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: HelpGettersScreen(),
-  ));
 }
