@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 20.0),
 
             const Text(
-              'Нажимая на кнопку выше, вы соглашаетесь с Условиями пользования',
+              'Нажимая на кнопку выше, вы соглашаетесь с Условиями пользования ',
               textAlign: TextAlign.center,
             ),
           ],

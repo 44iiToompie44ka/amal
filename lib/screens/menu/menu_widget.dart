@@ -1,3 +1,4 @@
+import 'package:amal/screens/menu/business_partners.dart';
 import 'package:amal/screens/user/unknown_user_banner.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,6 @@ class MenuWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               child: RegistrationCard(),
-                
-              
             ),
             const SizedBox(height: 20),
             SingleChildScrollView(
@@ -85,17 +84,16 @@ class MenuWidget extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.people), // Icon added here
-              title: const Text('Партнеры'),
+              leading: Icon(Icons.people), // Иконка "людей"
+              title: Text('Партнеры'),
               onTap: () {
-                // Handle item 3 click
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.info), // Icon added here
-              title: const Text('О проекте'),
-              onTap: () {
-                // Handle item 4 click
+                // Обработка нажатия на "Партнеры"
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PartnersPage()), // Здесь PartnersPage - это страница с партнерами
+                );
               },
             ),
             ListTile(

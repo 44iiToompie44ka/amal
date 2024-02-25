@@ -1,3 +1,5 @@
+import 'package:amal/screens/home/notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'help_getter.dart';
 
@@ -5,7 +7,7 @@ class FundRaiserWidget extends StatelessWidget {
   final String title;
   final int raised;
   final int needed;
-  final HelpGetter helpGetter;
+  QueryDocumentSnapshot helpGetter;
 
   FundRaiserWidget({
     required this.title,
@@ -119,8 +121,11 @@ class FundRaiserWidget extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
+              );
+            },
               child: Text('Сделать перевод'),
             ),
           ],

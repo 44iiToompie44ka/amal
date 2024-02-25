@@ -1,14 +1,20 @@
 // help_getter_widget.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'help_getter.dart';
 import 'fund_raiser_widget.dart';
 
-class HelpGetterWidget extends StatelessWidget {
-  final HelpGetter helpGetter;
+class HelpGetterWidget extends StatefulWidget {
+  QueryDocumentSnapshot?  helpGetter;
 
   HelpGetterWidget({required this.helpGetter});
 
+  @override
+  State<HelpGetterWidget> createState() => _HelpGetterWidgetState();
+}
+
+class _HelpGetterWidgetState extends State<HelpGetterWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +42,7 @@ class HelpGetterWidget extends StatelessWidget {
                 height: 120,
                 width: 120,
                 child: Image.network(
-                  helpGetter.image,
+                  widget.helpGetter!.get('image'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -46,7 +52,7 @@ class HelpGetterWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${helpGetter.name} ${helpGetter.fatherName}',
+                      '${widget.helpGetter!.get('name')} ${widget.helpGetter!.get('fathername')}',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -54,7 +60,7 @@ class HelpGetterWidget extends StatelessWidget {
                     ),
                     
                     Text(
-                      helpGetter.address,
+                      widget.helpGetter!.get('address'),
                       style: const TextStyle(
                         fontSize: 14.0,
                       ),
@@ -66,17 +72,17 @@ class HelpGetterWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           Text(
-            helpGetter.description,
+            widget.helpGetter!.get('description'),
             style: const TextStyle(
               fontSize: 16.0,
             ),
           ),
           const SizedBox(height: 10.0),
           FundRaiserWidget(
-            title: helpGetter.raisingFor,
-            raised: helpGetter.raised,
-            needed: helpGetter.needed,
-            helpGetter: helpGetter,
+            title: widget.helpGetter!.get('raisingfor'),
+            raised: widget.helpGetter!.get('raised'),
+            needed: widget.helpGetter!.get('needed'),
+            helpGetter: widget.helpGetter!,
           ),
         ],
       ),

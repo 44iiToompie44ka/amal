@@ -2,7 +2,8 @@
 
 import 'package:amal/events/actions_screen.dart';
 import 'package:amal/screens/home/home_screen.dart';
-import 'package:amal/screens/into_screen.dart';
+import 'package:amal/screens/home/payment_history.dart';
+import 'package:amal/screens/intro_screen.dart';
 import 'package:amal/screens/menu/menu_widget.dart';
 import 'package:amal/screens/rewards/rewards_screen.dart';
 import 'package:amal/screens/user/registration/help_getter_registration.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             secondary: Colors.black,
             background: Colors.white),
       ),
-      home: const IntroScreen(), //MyHomePage(),
+      home: IntroScreen(), //MyHomePage(),
     );
   }
 }
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _pages = [
     const Center(child: Text('menu')),
-    HelpGetterRegistration(),
+    PaymentHistory(),
     HelpGettersScreen(),
     ActionsPage(),
     Rewards_screenPage(),
@@ -76,8 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Меню',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet_rounded),
-            label: 'Платежи',
+            icon: Icon(Icons.bookmark),
+            label: 'История',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
