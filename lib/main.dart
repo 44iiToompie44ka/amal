@@ -2,6 +2,7 @@
 
 import 'package:amal/events/actions_screen.dart';
 import 'package:amal/screens/home/home_screen.dart';
+import 'package:amal/screens/home/payment_history.dart';
 import 'package:amal/screens/into_screen.dart';
 import 'package:amal/screens/menu/menu_widget.dart';
 import 'package:amal/screens/rewards/rewards_screen.dart';
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          onPrimary: Colors.white38,
-          primary: Color.fromARGB(211, 155, 32, 226),
+            onPrimary: Colors.white38,
+            primary: Color.fromARGB(211, 155, 32, 226),
             seedColor: Colors.black,
             secondary: Colors.black,
             background: Colors.white),
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const Center(child: Text('menu')),
     HelpGetterRegistration(),
     HelpGettersScreen(),
-    ActionsPage(),
+    PaymentHistory(),
     Rewards_screenPage(),
   ];
 
@@ -97,7 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: (int index) {
           switch (index) {
             case 0:
-                          Future.delayed(Duration(milliseconds: 100)).then((value) => _showMenu(context));
+              Future.delayed(Duration(milliseconds: 100))
+                  .then((value) => _showMenu(context));
 
               break;
             case 1:
