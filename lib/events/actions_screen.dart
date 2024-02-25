@@ -2,7 +2,7 @@ import 'package:amal/events/event_screen.dart';
 import 'package:flutter/material.dart';
 
 class ActionsPage extends StatelessWidget {
-  const ActionsPage({Key? key});
+  const ActionsPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +53,12 @@ class ActionsPage extends StatelessWidget {
                   // Переход на вторую страницу
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EventPage()),
+                    MaterialPageRoute(builder: (context) => const EventPage()),
                   );
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   height: 600,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -80,8 +81,8 @@ class ActionsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
-                      Padding(
+                      const SizedBox(height: 16),
+                      const Padding(
                         padding: EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +127,7 @@ class ActionsPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,20 +156,20 @@ class ActionsPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         width: 200.0,
         height: 60.0,
         child: FloatingActionButton.extended(
           onPressed: () {
             // Add your onPressed logic here
           },
-          label: Text(
+          label: const Text(
             'Фильтры',
             style: TextStyle(
               fontSize: 25,
             ),
           ),
-          icon: Icon(Icons.filter_list_alt),
+          icon: const Icon(Icons.filter_list_alt),
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         ),
       ),

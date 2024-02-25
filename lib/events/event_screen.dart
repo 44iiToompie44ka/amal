@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EventPage extends StatelessWidget {
-  const EventPage({Key? key});
+  const EventPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class EventPage extends StatelessWidget {
             Container(
               height: 1200,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(
                     255, 255, 255, 255), // Задаем белый фон для контейнера
               ),
@@ -32,8 +32,8 @@ class EventPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Padding(
+                  const SizedBox(height: 16),
+                  const Padding(
                     padding: EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +78,7 @@ class EventPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +112,7 @@ class EventPage extends StatelessWidget {
                     backgroundColor: Colors.white,
                     child: IconButton(
                       color: Colors.black,
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -130,7 +130,7 @@ class EventPage extends StatelessWidget {
                   backgroundColor: Colors.white,
                   child: IconButton(
                     color: Colors.black,
-                    icon: Icon(Icons.share),
+                    icon: const Icon(Icons.share),
                     onPressed: () {
                       // Действия при нажатии на кнопку "поделиться"
                     },

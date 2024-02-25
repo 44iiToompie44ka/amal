@@ -2,19 +2,22 @@
 
 import 'package:amal/events/actions_screen.dart';
 import 'package:amal/screens/home/home_screen.dart';
+import 'package:amal/screens/intro_screen.dart';
 import 'package:amal/screens/menu/menu_widget.dart';
+import 'package:amal/screens/rewards/rewards_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,12 +28,14 @@ class MyApp extends StatelessWidget {
             secondary: Colors.black,
             background: Colors.white),
       ),
-      home: MyHomePage(),
+      home: const IntroScreen(), //MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -41,9 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _pages = [
     const Center(child: Text('menu')),
     const Center(child: Text('Page 3')),
-    HelpGettersScreen(),
+    const HelpGettersScreen(),
     const ActionsPage(),
-    const Center(child: Text('Page 12')),
+    const Rewards_screenPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -112,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return MenuWidget();
+        return const MenuWidget();
       },
     );
   }

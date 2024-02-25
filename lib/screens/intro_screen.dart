@@ -1,4 +1,4 @@
-import 'package:amal/events/actions_screen.dart';
+import 'package:amal/main.dart';
 import 'package:flutter/material.dart';
 
 class IntroScreen extends StatelessWidget {
@@ -79,27 +79,27 @@ class IntroScreen extends StatelessWidget {
                   onPressed: () {
                     // Обработка нажатия на кнопку РУС
                   },
-                  child: Text(
+                  child: const Text(
                     'РУС',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 TextButton(
                   onPressed: () {
                     // Обработка нажатия на кнопку КАЗ
                   },
-                  child: Text(
+                  child: const Text(
                     'КАЗ',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 TextButton(
                   onPressed: () {
                     // Обработка нажатия на кнопку ENG
                   },
-                  child: Text(
+                  child: const Text(
                     'ENG',
                     style: TextStyle(color: Colors.white),
                   ),
@@ -115,7 +115,7 @@ class IntroScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => ActionsPage()),
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -127,7 +127,7 @@ class IntroScreen extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16.0),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'ПРОДОЛЖИТЬ',
                     style: TextStyle(

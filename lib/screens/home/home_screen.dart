@@ -7,6 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'help_getter.dart';
 
 class HelpGettersScreen extends StatefulWidget {
+  const HelpGettersScreen({super.key});
+
   @override
   _HelpGettersScreenState createState() => _HelpGettersScreenState();
 }
@@ -48,13 +50,13 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
                     future: helpGetters,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
-                        return Center(
+                        return const Center(
                             child:
                                 Text('Error fetching data. Please try again.'));
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(child: Text('No data available.'));
+                        return const Center(child: Text('No data available.'));
                       } else {
                         List<HelpGetter> helpGettersList = snapshot.data!;
                         return ListView.builder(
@@ -68,7 +70,7 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
                     },
                   )
                 : FlutterMap(
-                    options: MapOptions(
+                    options: const MapOptions(
                       center:
                           LatLng(45.0180, 78.3770), // Taldykorgan coordinates
                       zoom: 12.0,
