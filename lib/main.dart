@@ -2,6 +2,7 @@
 
 import 'package:amal/events/actions_screen.dart';
 import 'package:amal/screens/home/home_screen.dart';
+import 'package:amal/screens/home/people_card.dart';
 import 'package:amal/screens/intro_screen.dart';
 import 'package:amal/screens/menu/menu_widget.dart';
 import 'package:amal/screens/rewards/rewards_screen.dart';
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _pages = [
     const Center(child: Text('menu')),
-    const Center(child: Text('Page 3')),
+    const PersonCard(),
     const HelpGettersScreen(),
     const ActionsPage(),
     const Rewards_screenPage(),
