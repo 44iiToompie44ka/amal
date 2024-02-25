@@ -27,32 +27,33 @@ class HelpGetterWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
-              CircleAvatar(
-                radius: 40.0,
-                backgroundImage: AssetImage('assets/avatar_image.png'),
-              ),
-              SizedBox(width: 10.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    helpGetter.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  Text(
-                    helpGetter.address,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+  children: [
+    CircleAvatar(
+      radius: 45.0,
+      backgroundImage: AssetImage('assets/avatar_image.png'),
+    ),
+    SizedBox(width: 10.0),
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${helpGetter.name} ${helpGetter.fatherName}', 
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
           ),
+        ),
+        Text(
+          helpGetter.address,
+          style: TextStyle(
+            fontSize: 14.0,
+          ),
+        ),
+      ],
+    ),
+  ],
+),
+
           SizedBox(height: 10.0),
           Text(
             helpGetter.description,
