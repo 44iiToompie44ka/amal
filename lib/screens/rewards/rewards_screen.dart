@@ -62,7 +62,7 @@ class _Rewards_screenPageState extends State<Rewards_screenPage> {
             color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
       ),
       bubbleColor: Theme.of(context).colorScheme.primary,
-      titleStyle: const TextStyle(fontSize: 25.0, fontWeight: FontWeight.w700),
+      titleStyle: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
       subtitleStyle:
           const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
       descriptionStyle: const TextStyle(fontSize: 12.0),
