@@ -1,6 +1,8 @@
 import 'package:amal/screens/user/unknown_user_banner.dart';
 import 'package:flutter/material.dart';
 
+import 'reserve.dart';
+
 class MenuWidget extends StatelessWidget {
   const MenuWidget({super.key});
 
@@ -21,8 +23,6 @@ class MenuWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               child: RegistrationCard(),
-                
-              
             ),
             const SizedBox(height: 20),
             SingleChildScrollView(
@@ -38,7 +38,7 @@ class MenuWidget extends StatelessWidget {
                           height: 150,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.blue, width: 2),
+                            border: Border.all(color: Colors.blue, width: 1),
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
@@ -59,7 +59,7 @@ class MenuWidget extends StatelessWidget {
                             'Текст ${index + 1}',
                             style: const TextStyle(
                               fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w300,
                             ),
                           ),
                         ),
@@ -74,7 +74,12 @@ class MenuWidget extends StatelessWidget {
               leading: const Icon(Icons.attach_money), // Icon added here
               title: const Text('Резервный фонд'),
               onTap: () {
-                // Handle item 1 click
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ReservePage()), // Поменяйте на правильное название класса вашей страницы reservepage
+                );
               },
             ),
             ListTile(
