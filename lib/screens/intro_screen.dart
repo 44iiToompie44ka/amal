@@ -19,7 +19,7 @@ class IntroScreen extends StatelessWidget {
           ),
           Center(
             child: Image.asset(
-              'assets/images/logo.png', // Путь к вашему логотипу
+              'assets/images/2.png', // Путь к вашему логотипу
               width: 300, // Ширина логотипа
               height: 300, // Высота логотипа
             ),
@@ -115,7 +115,7 @@ class IntroScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                  MaterialPageRoute(builder: (context) => const MyHomePage()),
                 );
               },
               style: ElevatedButton.styleFrom(

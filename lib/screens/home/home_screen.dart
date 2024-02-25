@@ -1,13 +1,14 @@
-import 'package:amal/screens/home/help_getter_widget.dart';
+import 'package:amal/screens/home/notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'help_getter.dart';
+import 'help_getter_widget.dart';
 
 class HelpGettersScreen extends StatefulWidget {
-  const HelpGettersScreen({super.key});
+  const HelpGettersScreen({Key? key}) : super(key: key);
 
   @override
   _HelpGettersScreenState createState() => _HelpGettersScreenState();
@@ -41,6 +42,17 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 30),
         ),
         centerTitle: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
+              );
+            },
+            icon: Icon(Icons.notifications),
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -94,7 +106,7 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
                 });
               },
               child: Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Row(
                   children: [
                     Icon(
