@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: HelpGetterRegistration(),
-  ));
-}
+import 'package:firebase_storage/firebase_storage.dart';
 
 class HelpGetterRegistration extends StatefulWidget {
   @override
@@ -14,11 +12,7 @@ class HelpGetterRegistration extends StatefulWidget {
 }
 
 class _HelpGetterRegistrationState extends State<HelpGetterRegistration> {
-  PageController _pageController = PageController(initialPage: 0);
-  int _currentPage = 0;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Add this line
-
+  final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _fatherNameController = TextEditingController();
   final _surnameController = TextEditingController();
@@ -28,7 +22,7 @@ class _HelpGetterRegistrationState extends State<HelpGetterRegistration> {
   File? _image;
 
   String _selectedType = 'Продуктовая корзина';
-  String _selectedType1 = '';
+  String _selectedType1 = 'Выберите свою группу';
 
   List<String> raisingType = [
     'Продуктовая корзина',
@@ -37,107 +31,127 @@ class _HelpGetterRegistrationState extends State<HelpGetterRegistration> {
     'Сбор в школу',
     'Тепло (Уголь для отопления)'
   ];
-  List<String> status = ['', 'Пенсионер', 'Мать одиночка', 'Инвалид'];
+  List<String> status = ['Пенсионер', 'Мать одиночка', 'Инвалид'];
+
+  Future<void> _submitForm() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      String imageUrl = await uploadImage();
+      try {
+        await FirebaseFirestore.instance.collection('helpgetters').add({
+          'raisingType': _selectedType,
+          'status': _selectedType1,
+          'name': _nameController.text,
+          'fatherName': _fatherNameController.text,
+          'surname': _surnameController.text,
+          'childrenCount': int.parse(_childrenCountController.text),
+          'age': int.parse(_ageController.text),
+          'desc': _descController.text,
+          'image': imageUrl,
+        });
+
+        _selectedType = '';
+        _selectedType1 = '';
+        _nameController.clear();
+        _fatherNameController.clear();
+        _surnameController.clear();
+        _childrenCountController.clear();
+        _ageController.clear();
+        _descController.clear();
+
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Заявка успешно подана!'),
+          ),
+        );
+      } catch (e) {
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Ошибка: $e'),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<String> uploadImage() async {
+    if (_image == null) {
+      return '';
+    }
+
+    try {
+      String imageName =
+          '${DateTime.now().millisecondsSinceEpoch}.png'; // Use a unique name for the image
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child(imageName);
+      await storageReference.putFile(_image!);
+      String imageUrl = await storageReference.getDownloadURL();
+      return imageUrl;
+    } catch (e) {
+      print('Ошибка загрузки изображения: $e');
+      return '';
+    }
+  }
+
+  Future<void> _getImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Заявка Благополучателя"),
+        title: const Text('Заявка благополучителя'),
         centerTitle: false,
       ),
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          _buildPage1(),
-          _buildPage2(),
-          _buildPage3(),
-          _buildPage4(),
-          _buildPage5(),
-          _buildPage6(),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              onPressed: () {
-                if (_currentPage > 0) {
-                  _pageController.previousPage(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.ease,
-                  );
-                  setState(() {
-                    _currentPage--;
-                  });
-                }
-              },
-              icon: Icon(Icons.arrow_back),
-            ),
-            Text('Page ${_currentPage + 1} of 6'),
-            IconButton(
-              onPressed: () {
-                if (_currentPage < 5) {
-                  _pageController.nextPage(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.ease,
-                  );
-                  setState(() {
-                    _currentPage++;
-                  });
-                } else {
-                  // Handle submission on the last page
-                  _submitForm();
-                }
-              },
-              icon: Icon(Icons.arrow_forward),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ... (previous code)
-
-Widget _buildPage1() {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DropdownButtonFormField<String>(
-          value: _selectedType1,
-          onChanged: (newValue) {
-            setState(() {
-              _selectedType1 = newValue!;
-            });
-          },
-          items: status.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          decoration: const InputDecoration(labelText: 'Статус'),
-        ),
-        if (_selectedType1 == 'Пенсионер')
-          TextFormField(
-            controller: _descController,
-            decoration: const InputDecoration(labelText: 'Описание'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a description';
-              }
-              return null;
-            },
-          ),
-        if (_selectedType1 == 'Инвалид')
-          Column(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ElevatedButton(
+                onPressed: _getImage,
+                child: const Text('Выбрать изображение'),
+              ),
+              _image != null
+                  ? Image.file(
+                      _image!,
+                      height: 100,
+                      width: 100,
+                    )
+                  : const SizedBox.shrink(),
+              // Type Dropdown
+              DropdownButtonFormField<String>(
+                value: _selectedType,
+                onChanged: (newValue) {
+                  setState(() {
+                    _selectedType = newValue!;
+                  });
+                },
+                items: raisingType.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                decoration: const InputDecoration(labelText: 'Тип'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Пожалуйста, выберите потребность!';
+                  }
+                  return null;
+                },
+              ),
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(labelText: 'Имя'),
@@ -156,255 +170,35 @@ Widget _buildPage1() {
                   return null;
                 },
               ),
-              DropdownButtonFormField<String>(
-                value: _selectedType,
-                onChanged: (newValue) {
-                  setState(() {
-                    _selectedType = newValue!;
-                  });
-                },
-                items: raisingType.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                decoration: const InputDecoration(labelText: 'Тип'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a raising type!';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _descController,
-                decoration: const InputDecoration(labelText: 'Описание'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
-                  }
-                  return null;
-                },
-              ),
-            ],
-          ),
-        if (_selectedType1 == 'Мать одиночка')
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
               TextFormField(
                 controller: _surnameController,
                 decoration: const InputDecoration(labelText: 'Фамилия'),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the surname';
-                  }
+                  // Validation logic here
                   return null;
                 },
               ),
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Имя'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the name';
-                  }
-                  return null;
-                },
-              ),
+              
+              
               TextFormField(
                 controller: _descController,
                 decoration: const InputDecoration(labelText: 'Описание'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
+                    return 'Please describe your situation';
                   }
                   return null;
                 },
               ),
-              DropdownButtonFormField<String>(
-                value: _selectedType,
-                onChanged: (newValue) {
-                  setState(() {
-                    _selectedType = newValue!;
-                  });
-                },
-                items: raisingType.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                decoration: const InputDecoration(labelText: 'Тип'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a raising type!';
-                  }
-                  return null;
-                },
-              ),
+              const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: _getImage,
-                child: const Text('Прикрепите фотографию семьи'),
+                onPressed: _submitForm,
+                child: const Text('Оставить заявку'),
               ),
             ],
           ),
-      ],
-    ),
-  );
-}
-
-// ... (remaining code)
-
-
-  Widget _buildPage2() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child:DropdownButtonFormField<String>(
-        value: _selectedType1,
-        onChanged: (newValue) {
-          setState(() {
-            _selectedType1 = newValue!;
-          });
-        },
-        items: status.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        decoration: const InputDecoration(labelText: 'Статус'),
-      ),
-      /* DropdownButtonFormField<String>(
-        value: _selectedType,
-        onChanged: (newValue) {
-          setState(() {
-            _selectedType = newValue!;
-          });
-        },
-        items: raisingType.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        decoration: const InputDecoration(labelText: 'Тип'),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Пожалуйста, выберите потребность!';
-          }
-          return null;
-        },
-      ),*/
-    );
-  }
-
-  Widget _buildPage3() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: DropdownButtonFormField<String>(
-        value: _selectedType1,
-        onChanged: (newValue) {
-          setState(() {
-            _selectedType1 = newValue!;
-          });
-        },
-        items: status.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        decoration: const InputDecoration(labelText: 'Статус'),
-      ),
-    );
-  }
-
-  Widget _buildPage4() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextFormField(
-        controller: _nameController,
-        decoration: const InputDecoration(labelText: 'Имя'),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter the name';
-          }
-          return null;
-        },
-      ),
-    );
-  }
-
-  Widget _buildPage5() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextFormField(
-        controller: _childrenCountController,
-        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        decoration: const InputDecoration(labelText: 'Количество детей'),
-        validator: (value) {
-          // Validation logic here
-          return null;
-        },
-      ),
-    );
-  }
-
-  Widget _buildPage6() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            controller: _ageController,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: const InputDecoration(labelText: 'Возраст'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your age';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _descController,
-            decoration: const InputDecoration(labelText: 'Описание'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please describe your situation';
-              }
-              return null;
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _getImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      }
-    });
-  }
-
-  void _submitForm() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // All form fields are valid, proceed with form submission
-      // Your submission logic here
-
-      // Show a success message or navigate to the next screen
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Form submitted successfully!'),
         ),
-      );
-    }
+      ),
+    );
   }
 }

@@ -238,6 +238,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.17"
+  flutter_slidable:
+    dependency: "direct main"
+    description:
+      name: flutter_slidable
+      sha256: "19ed4813003a6ff4e9c6bcce37e792a2a358919d7603b2b31ff200229191e44c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -440,6 +448,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  lecle_bubble_timeline:
+    dependency: "direct main"
+    description:
+      name: lecle_bubble_timeline
+      sha256: "21b84904801d8d64d43fd532923ee232a25bed86d4c2fd2af7fc25e2973bcb79"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1+1"
   lints:
     dependency: transitive
     description:

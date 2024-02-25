@@ -1,96 +1,71 @@
-import 'package:amal/screens/user/unknown_user_banner.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lecle_bubble_timeline/lecle_bubble_timeline.dart';
+import 'package:lecle_bubble_timeline/models/timeline_item.dart';
 
-class Rewards_screenPage extends StatelessWidget {
+class Rewards_screenPage extends StatefulWidget {
   const Rewards_screenPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<String> imagePaths = [
-      'assets/images/4.jpg',
-      'assets/images/1.jpg',
-      'assets/images/3.jpg',
-      'assets/images/2.png',
-      'assets/images/5.jpg',
-    ];
+  State<Rewards_screenPage> createState() => _Rewards_screenPageState();
+}
 
+class _Rewards_screenPageState extends State<Rewards_screenPage> {
+  late FirebaseFirestore db;
+
+  @override
+  void initState() {
+    db = FirebaseFirestore.instance;
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(197, 255, 255, 255),
-      appBar: AppBar(
-        toolbarHeight: 180,
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 10,
-                    bottom: 10,
-                    top: 10,
-                  ),
-                  child: Text(
-                    'Награды',
-                    style: TextStyle(
-                      color: Color.fromARGB(192, 0, 0, 0),
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
+        appBar: AppBar(
+          title: const Text("Awards"),
+        ),
+        body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: db
+                .collection("awards")
+                .orderBy(
+                  "point",
+                )
+                .snapshots(),
+            builder: (context, snapshot) {
+              return Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 0.0),
+                    child: BubbleTimeline(
+                      bubbleSize: 120,
+                      // List of Timeline Bubble Items
+                      items: snapshot.data!.docs.map((e) => _card(e)).toList(),
+
+                      stripColor: Colors.grey,
+                      dividerCircleColor: Colors.white,
                     ),
-                  ),
-                ),
-                RegistrationCard(), // Вставляем виджет регистрации
-              ],
-            ),
-          ],
-        ),
+                  )
+                ],
+              );
+            }));
+  }
+
+  TimelineItem _card(QueryDocumentSnapshot? doc) {
+    return TimelineItem(
+      title: doc!.get('title'),
+      subtitle: doc.get('description'),
+      icon: Text(
+        doc.get('point').toString(),
+        style: const TextStyle(
+            color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(
-                left: 20,
-                bottom: 10,
-                top: 25,
-              ),
-              child: Text(
-                'Топ 10 наград',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 200, // Высота контейнера для списка изображений
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15), // Отступ слева
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal, // Горизонтальная прокрутка
-                  itemCount: 5, // Количество элементов в списке
-                  itemBuilder: (context, index) {
-                    // Создаем элемент списка с изображением и закругленными углами
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.asset(
-                          imagePaths[index], // Выбор изображения из списка
-                          width: 150,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      bubbleColor: Theme.of(context).colorScheme.primary,
+      titleStyle: const TextStyle(fontSize: 25.0, fontWeight: FontWeight.w700),
+      subtitleStyle:
+          const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+      descriptionStyle: const TextStyle(fontSize: 12.0),
     );
   }
 }

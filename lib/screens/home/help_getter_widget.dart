@@ -1,5 +1,6 @@
 // help_getter_widget.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'help_getter.dart';
 import 'fund_raiser_widget.dart';
 
@@ -40,23 +41,26 @@ class HelpGetterWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${helpGetter.name} ${helpGetter.fatherName}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${helpGetter.name} ${helpGetter.fatherName}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
                     ),
-                  ),
-                  Text(
-                    helpGetter.address,
-                    style: const TextStyle(
-                      fontSize: 14.0,
+                    
+                    Text(
+                      helpGetter.address,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

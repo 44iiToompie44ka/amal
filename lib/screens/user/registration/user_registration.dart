@@ -5,62 +5,42 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your App Name'),
+        title: const Text('Вход'),
+        centerTitle: false,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // App Logo
-            Image.network('your_app_logo_url'),
+            Image.asset("assets/logo.png"),
+            const Padding(padding: EdgeInsets.symmetric(horizontal: 80), child: Text("Пожалуйста, войдите в аккаунт, по номеру телефона", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),),),
 
-            SizedBox(height: 20.0),
-
-            // Phone Number Input
-            TextField(
+            const TextField(
               decoration: InputDecoration(
-                labelText: 'Phone Number',
+                labelText: 'Введите номер телефона',
                 prefixText: '+',
               ),
             ),
 
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
 
-            // Login Button
             ElevatedButton(
+              style: ButtonStyle(    backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
+),
               onPressed: () {
-                // Add login functionality here
               },
-              child: Text('Login'),
+              child: const Text('Вход', style: TextStyle(color: Colors.white),),
             ),
 
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
 
-            // Register Button
-            TextButton(
-              onPressed: () {
-                // Add navigation to registration screen
-              },
-              child: Text('Don\'t have an account? Register'),
-            ),
+            const SizedBox(height: 20.0),
 
-            SizedBox(height: 20.0),
-
-            // Terms and Privacy Policy
-            Text(
-              'By logging in, you agree to our Terms of Service and Privacy Policy.',
+            const Text(
+              'Нажимая на кнопку выше, вы соглашаетесь с Условиями пользования',
               textAlign: TextAlign.center,
-            ),
-
-            SizedBox(height: 20.0),
-
-            // Kazakh Text about data collection and terms
-            Text(
-              'Kazakh Text about data collection and terms',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey),
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:amal/screens/home/home_screen.dart';
 import 'package:amal/screens/into_screen.dart';
 import 'package:amal/screens/menu/menu_widget.dart';
 import 'package:amal/screens/rewards/rewards_screen.dart';
+import 'package:amal/screens/user/registration/help_getter_registration.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
+          onPrimary: Colors.white38,
           primary: Color.fromARGB(211, 155, 32, 226),
             seedColor: Colors.black,
             secondary: Colors.black,
@@ -48,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _pages = [
     const Center(child: Text('menu')),
-    Text("test"),
+    HelpGetterRegistration(),
     HelpGettersScreen(),
     ActionsPage(),
     Rewards_screenPage(),
