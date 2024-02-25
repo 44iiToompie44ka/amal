@@ -1,5 +1,6 @@
 import 'package:amal/screens/menu/business_partners.dart';
 import 'package:amal/screens/user/unknown_user_banner.dart';
+import 'package:amal/screens/menu/contacts.dart';
 import 'package:flutter/material.dart';
 
 class MenuWidget extends StatelessWidget {
@@ -100,7 +101,12 @@ class MenuWidget extends StatelessWidget {
               leading: const Icon(Icons.contact_mail), // Icon added here
               title: const Text('Контакты'),
               onTap: () {
-                // Handle item 5 click
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ContactsPage()), // Здесь PartnersPage - это страница с партнерами
+                );
               },
             ),
             const SizedBox(height: 20),
