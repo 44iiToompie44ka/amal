@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             secondary: Colors.black,
             background: Colors.white),
       ),
-      home: const IntroScreen(), //MyHomePage(),
+      home: IntroScreen(), //MyHomePage(),
     );
   }
 }

@@ -1,4 +1,7 @@
+import 'package:amal/screens/home/fund_raiser_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:amal/screens/home/detailed_fund_help/help_details_screen.dart';
+import 'help_getter.dart';
 
 class PersonCard extends StatefulWidget {
   const PersonCard({Key? key}) : super(key: key);
@@ -109,6 +112,16 @@ class _PersonCardState extends State<PersonCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        child: Text(
+                          'Татьяна Гиоргиевна', // Your first text here
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 15),
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 8),
@@ -150,36 +163,16 @@ class _PersonCardState extends State<PersonCard> {
                                 ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Container(
-              margin: EdgeInsets.all(15),
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16.0),
-                  child: Center(
-                    child: Text(
-                      'Adopt',
-                      style: TextStyle(
-                        fontSize: 30,
+                      SizedBox(height: 20),
+                      Text(
+                        'Потребности', // Your first text here
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 20),
+                    ],
                   ),
                 ),
               ),

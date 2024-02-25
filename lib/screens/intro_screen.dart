@@ -1,144 +1,138 @@
-import 'package:amal/main.dart';
 import 'package:flutter/material.dart';
+import 'package:amal/main.dart'; // Импортируйте файл main.dart, если он находится в другой директории
 
-class IntroScreen extends StatelessWidget {
-  const IntroScreen({super.key});
+class IntroScreen extends StatefulWidget {
+  @override
+  _IntroScreenState createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  bool _showText = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+    _controller.forward();
+
+    // Отложенное показ текста через 4 секунды
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        _showText = true;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _navigateToNextPage() {
+    // Переход на страницу MyHomePage
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyHomePage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/фон2.png'),
-                fit: BoxFit.cover,
+      body: GestureDetector(
+        // Оборачиваем весь контейнер в GestureDetector
+        onTap:
+            _navigateToNextPage, // Вызываем функцию для перехода на следующую страницу
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                'assets/images/q.jpg', // Путь к вашему фоновому изображению
               ),
+              fit: BoxFit.cover,
             ),
           ),
-          Center(
-            child: Image.asset(
-              'assets/images/2.png', // Путь к вашему логотипу
-              width: 300, // Ширина логотипа
-              height: 300, // Высота логотипа
-            ),
-          ),
-          // Текст внизу
-          const Positioned(
-            bottom: 5,
-            left: 50,
-            right: 50,
-            child: Text(
-              "Мобильное приложение адресной и прозрачной помощи",
-              style: TextStyle(
-                color: Color.fromARGB(192, 255, 255, 255),
-                fontSize: 16,
-                fontWeight: FontWeight.w300,
+          child: Stack(
+            children: [
+              Container(
+                height: 900,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(186, 226, 32, 194),
+                      Color.fromARGB(211, 155, 32, 226),
+                      Color.fromARGB(201, 72, 18, 189),
+                      Color.fromARGB(226, 27, 86, 126),
+                    ],
+                  ),
+                ),
               ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const Positioned(
-            top: 60.0,
-            left: 20.0,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Код для изображения app_icon удален
-                SizedBox(width: 10.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Welcome to \nAmal',
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+              Positioned(
+                top: 260,
+                right: 50,
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/222.png', // Путь к вашему первому изображению
+                        ),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Text(
-                      'Помощь нуждающимся',
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.white,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 430,
+                right: 110,
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: Container(
+                    width: 180,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/amal.logo.png', // Путь к вашему второму изображению
+                        ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 10.0,
-            right: 10.0,
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    // Обработка нажатия на кнопку РУС
-                  },
-                  child: const Text(
-                    'РУС',
-                    style: TextStyle(color: Colors.white),
                   ),
-                ),
-                const SizedBox(width: 10),
-                TextButton(
-                  onPressed: () {
-                    // Обработка нажатия на кнопку КАЗ
-                  },
-                  child: const Text(
-                    'КАЗ',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                TextButton(
-                  onPressed: () {
-                    // Обработка нажатия на кнопку ENG
-                  },
-                  child: const Text(
-                    'ENG',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 50.0,
-            left: 20.0,
-            right: 20.0,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      10.0), // Устанавливаем более квадратные углы
                 ),
               ),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16.0),
-                child: const Center(
-                  child: Text(
-                    'ПРОДОЛЖИТЬ',
-                    style: TextStyle(
-                      fontSize: 30,
+              if (_showText)
+                Positioned(
+                  bottom: 20,
+                  left: 25,
+                  child: FadeTransition(
+                    opacity: _animation,
+                    child: Text(
+                      'Каждый житель нашего города важен для нас',
+                      style: TextStyle(
+                        color: const Color.fromARGB(199, 255, 255, 255),
+                        fontSize: 17,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
