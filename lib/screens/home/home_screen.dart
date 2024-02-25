@@ -96,12 +96,12 @@ class _HelpGettersScreenState extends State<HelpGettersScreen> {
                   children: [
                     Icon(
                       _isListVisible ? Icons.map : Icons.list,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     const SizedBox(width: 10.0),
                     Text(
                       _isListVisible ? 'Карта' : 'Список',
-                      style: const TextStyle(color: Colors.black),
+                      style: TextStyle(color: Theme.of(context).colorScheme.primary,),
                     ),
                   ],
                 ),

@@ -44,7 +44,7 @@ class FundRaiserWidget extends StatelessWidget {
                 child: LinearProgressIndicator(
                   value: progressPercentage / 100,
                   backgroundColor: Colors.grey[600],
-                  valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 172, 87, 115)),
+                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary,),
                   minHeight: 25.0,
                 ),
               ),
@@ -62,7 +62,7 @@ class FundRaiserWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 50.0),
             child: ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.grey[800]),
+                backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary,),
               ),
               onPressed: () {
                 _showConfirmationDialog(context);

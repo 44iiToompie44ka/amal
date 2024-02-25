@@ -32,9 +32,9 @@ class HelpGetterWidget extends StatelessWidget {
               Container(
                 clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(24.0)),
-                height: 90,
+                height: 120,
+                width: 120,
                 child: Image.network(
-                  // Use the 'image' field from the HelpGetter object
                   helpGetter.image,
                   fit: BoxFit.cover,
                 ),

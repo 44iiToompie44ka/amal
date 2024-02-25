@@ -1,11 +1,13 @@
+import 'package:amal/screens/user/unknown_user_banner.dart';
 import 'package:flutter/material.dart';
 
 class MenuWidget extends StatelessWidget {
-  const MenuWidget({Key? key});
+  const MenuWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      // Your menu content goes here
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -17,65 +19,10 @@ class MenuWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(32.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const CircleAvatar(
-                    key: Key('circle_avatar'),
-                    radius: 32,
-                    backgroundImage:
-                        AssetImage('assets/images/circle_image.png'),
-                  ),
-                  const SizedBox(width: 20),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Гость',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontSize: 22,
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        'Авторизуйся',
-                        style: TextStyle(
-                          color: Color.fromARGB(219, 0, 0, 0),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: 85,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Войти',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              padding: const EdgeInsets.all(16.0),
+              child: RegistrationCard(),
+                
+              
             ),
             const SizedBox(height: 20),
             SingleChildScrollView(
@@ -96,7 +43,7 @@ class MenuWidget extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.asset(
-                              'assets/images/image.png',
+                              'assets/images/image_$index.png',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -124,41 +71,68 @@ class MenuWidget extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ListTile(
-              leading: const Icon(Icons.attach_money),
+              leading: const Icon(Icons.attach_money), // Icon added here
               title: const Text('Резервный фонд'),
               onTap: () {
                 // Handle item 1 click
               },
             ),
             ListTile(
-              leading: const Icon(Icons.question_answer),
+              leading: const Icon(Icons.question_answer), // Icon added here
               title: const Text('Ответы на вопросы'),
               onTap: () {
                 // Handle item 2 click
               },
             ),
             ListTile(
-              leading: const Icon(Icons.people),
+              leading: const Icon(Icons.people), // Icon added here
               title: const Text('Партнеры'),
               onTap: () {
                 // Handle item 3 click
               },
             ),
             ListTile(
-              leading: const Icon(Icons.info),
+              leading: const Icon(Icons.info), // Icon added here
               title: const Text('О проекте'),
               onTap: () {
                 // Handle item 4 click
               },
             ),
             ListTile(
-              leading: const Icon(Icons.contact_mail),
+              leading: const Icon(Icons.contact_mail), // Icon added here
               title: const Text('Контакты'),
               onTap: () {
+                // Handle item 5 click
               },
             ),
             const SizedBox(height: 20),
-            
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle click
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Устанавливаем более квадратные углы
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16.0),
+                  child: const Center(
+                    child: Text(
+                      'Помочь проекту',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
           ],
         ),
       ),
