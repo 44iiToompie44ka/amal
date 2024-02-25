@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const Center(child: Text('menu')),
     HelpGetterRegistration(),
     HelpGettersScreen(),
-    PaymentHistory(),
+    ActionsPage(),
     Rewards_screenPage(),
   ];
 
