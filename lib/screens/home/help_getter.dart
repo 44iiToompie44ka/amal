@@ -1,4 +1,7 @@
+// help_getter.dart
+
 class HelpGetter {
+  final String image;
   final String name;
   final String fatherName; // New field
   final String address;
@@ -8,6 +11,7 @@ class HelpGetter {
   final String raisingFor;
 
   HelpGetter({
+    required this.image,
     required this.name,
     required this.fatherName,
     required this.address,
@@ -19,13 +23,13 @@ class HelpGetter {
 
   factory HelpGetter.fromMap(Map<String, dynamic>? data) {
     if (data == null) {
-      // Handle null data, you can throw an exception or return a default instance
       throw ArgumentError('Data cannot be null');
     }
 
     return HelpGetter(
+      image: data['image'] ?? '',
       name: data['name'] ?? '',
-      fatherName: data['fathername'] ?? '', // Adjust field name accordingly
+      fatherName: data['fathername'] ?? '',
       address: data['address'] ?? '',
       raised: data['raised'] ?? 0,
       needed: data['needed'] ?? 0,

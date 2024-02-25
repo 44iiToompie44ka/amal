@@ -53,8 +53,8 @@ class FundRaiserWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildDetailsColumn('\$$needed', 'Сумма сбора'),
-              _buildDetailsColumn('\$${needed - raised}', 'Осталось'),
+              _buildDetailsColumn('\〒$needed', 'Сумма сбора'),
+              _buildDetailsColumn('\〒${needed - raised}', 'Осталось'),
             ],
           ),
           const SizedBox(height: 10.0),

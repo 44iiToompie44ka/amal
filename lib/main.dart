@@ -1,6 +1,6 @@
-// main.dart
 
 import 'package:amal/screens/home/home_screen.dart';
+import 'package:amal/screens/login/registration/help_getter_registration.dart';
 import 'package:amal/screens/menu/menu_widget.dart';
 import 'package:amal/screens/rewards/rewards_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black, secondary: Colors.black, background: Colors.white),
@@ -36,10 +37,10 @@ class NavigationBarScreen extends State<MyHomePage> {
   int _selectedIndex = 2;
 
   final List<Widget> _pages = [
+    const MenuWidget(),
     const Center(child: Text('Page 3')),
-    const Center(child: Text('Page 3')),
-    HelpGettersScreen(),// HelpGettersScreen(),
-    const Center(child: Text('Page 3')),
+    HelpGettersScreen(),
+    HelpGetterRegistration(),
     RewardsScreen(),
 
   ];

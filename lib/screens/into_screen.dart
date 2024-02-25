@@ -1,4 +1,5 @@
 import 'package:amal/events/actions_screen.dart';
+import 'package:amal/main.dart';
 import 'package:flutter/material.dart';
 
 class IntroScreen extends StatelessWidget {
@@ -114,7 +115,7 @@ class IntroScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActionsPage()),
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
                 );
               },
               style: ElevatedButton.styleFrom(

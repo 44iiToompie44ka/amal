@@ -1,3 +1,4 @@
+// help_getter_widget.dart
 import 'package:flutter/material.dart';
 import 'help_getter.dart';
 import 'fund_raiser_widget.dart';
@@ -27,33 +28,38 @@ class HelpGetterWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-  children: [
-    const CircleAvatar(
-      radius: 45.0,
-      backgroundImage: AssetImage('assets/avatar_image.png'),
-    ),
-    const SizedBox(width: 10.0),
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '${helpGetter.name} ${helpGetter.fatherName}', 
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18.0,
+            children: [
+              Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(24.0)),
+                height: 90,
+                child: Image.network(
+                  // Use the 'image' field from the HelpGetter object
+                  helpGetter.image,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(width: 10.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${helpGetter.name} ${helpGetter.fatherName}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  Text(
+                    helpGetter.address,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ),
-        Text(
-          helpGetter.address,
-          style: const TextStyle(
-            fontSize: 14.0,
-          ),
-        ),
-      ],
-    ),
-  ],
-),
-
           const SizedBox(height: 10.0),
           Text(
             helpGetter.description,

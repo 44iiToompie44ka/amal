@@ -17,7 +17,7 @@ class MenuWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(32.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -158,31 +158,7 @@ class MenuWidget extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ElevatedButton(
-                onPressed: () {
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0),
-                  ),
-                ),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16.0),
-                  child: const Center(
-                    child: Text(
-                      'Помочь проекту',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            
           ],
         ),
       ),
