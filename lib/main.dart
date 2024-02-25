@@ -2,6 +2,7 @@
 
 import 'package:amal/screens/home/home_screen.dart';
 import 'package:amal/screens/menu/menu_widget.dart';
+import 'package:amal/screens/rewards/rewards_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -28,19 +29,18 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  NavigationBarScreen createState() => NavigationBarScreen();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class NavigationBarScreen extends State<MyHomePage> {
   int _selectedIndex = 2;
 
   final List<Widget> _pages = [
-
-    const Center(child: Text('menu')),
     const Center(child: Text('Page 3')),
-    HelpGettersScreen(),
     const Center(child: Text('Page 3')),
-    const Center(child: Text('Page 12')),
+    HelpGettersScreen(),// HelpGettersScreen(),
+    const Center(child: Text('Page 3')),
+    RewardsScreen(),
 
   ];
 
@@ -50,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
   @override
 Widget build(BuildContext context) {
   return Scaffold(
@@ -85,7 +84,8 @@ Widget build(BuildContext context) {
       onTap: (int index) {
         switch(index) {
           case 0:
-            _showMenu(context);
+          Future.delayed(Duration(milliseconds: 100)).then((value) => _showMenu(context))
+        ;
             break;
           case 1:
             _onItemTapped(index);
@@ -111,7 +111,7 @@ Widget build(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return MenuWidget();
+        return const MenuWidget();
       },
     );
   }

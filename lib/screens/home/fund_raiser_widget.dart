@@ -1,4 +1,3 @@
-import 'package:amal/screens/home/detailed_fund_help/help_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'help_getter.dart';
 
@@ -40,19 +39,13 @@ class FundRaiserWidget extends StatelessWidget {
           const SizedBox(height: 10.0),
           Stack(
             children: [
-              LinearProgressIndicator(
-                value: progressPercentage / 100,
-                backgroundColor: Colors.grey[600],
-                valueColor: const AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 172, 87, 115)),
-              ),
-              Positioned(
-                left: progressPercentage * 2.5,
-                child: Text(
-                  '\$${raised.toString()}',
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.white,
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: LinearProgressIndicator(
+                  value: progressPercentage / 100,
+                  backgroundColor: Colors.grey[600],
+                  valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 172, 87, 115)),
+                  minHeight: 25.0,
                 ),
               ),
             ],
@@ -60,66 +53,79 @@ class FundRaiserWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 5.0),
-                  Text(
-                    '\$$needed',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Text(
-                    'Сумма сбора',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const SizedBox(height: 5.0),
-                  Text(
-                    '\$${needed - raised}',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Text(
-                    'Осталось',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
+              _buildDetailsColumn('\$$needed', 'Сумма сбора'),
+              _buildDetailsColumn('\$${needed - raised}', 'Осталось'),
             ],
           ),
           const SizedBox(height: 10.0),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 100.0), child: ElevatedButton(
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50.0),
+            child: ElevatedButton(
               style: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(Colors.black), 
-  ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HelpDetailsScreen(helpGetter: helpGetter),
+                backgroundColor: MaterialStateProperty.all(Colors.grey[800]),
+              ),
+              onPressed: () {
+                _showConfirmationDialog(context);
+              },
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50.0),
+                child: Text(
+                  'Помочь',
+                  style: TextStyle(fontWeight: FontWeight.w800, color: Colors.white),
                 ),
-              );
-            },
-            child: Text('Помочь', style: TextStyle(fontWeight: FontWeight.w800, color: Colors.white),),
-          ),)
-          
+              ),
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildDetailsColumn(String value, String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 5.0),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 16.0,
+            color: Colors.black,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Подтверждение'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Отменить'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Сделать перевод'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
